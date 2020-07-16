@@ -26,7 +26,7 @@ public class Searching extends JFrame{
     int key=225;
     private int max_height=380,min_height=40; 
     //copied variables
-    private int x_min=50,y_min=65;
+    private int x_min=40,y_min=65;
     private int x_window=1100,y_window=700;
     private int window=950;
     private int width=window/arraySize,margin=6;
@@ -35,10 +35,12 @@ public class Searching extends JFrame{
             highlighted_color=Color.red,
             secondary_color=Color.magenta,
             final_color=Color.blue,
-            temp_color=Color.green;
+            temp_color=Color.green,
+            key_color=Color.decode("#ff6600");
     private int delay=300;
     private boolean sorted=false;
     private Font font;
+    private int keyIndex=-1;
     Graphics graphics;
     static javax.swing.JLabel label;
     
@@ -47,17 +49,17 @@ public class Searching extends JFrame{
         setSize(x_window,y_window);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Visulaisation of Soritng algorithms");
-        arraySize=arrSize;
+        this.arraySize=arrSize;
         array=new int[arraySize];
         width=window/arraySize;
         graphics=g;
-        font=new Font(graphics.getFont().getFamily(),Font.ITALIC,15);
-        graphics.setFont(font);
+//        font=new Font(graphics.getFont().getFamily(),Font.ITALIC,15);
+//        graphics.setFont(font);
         label=jlabel;
         
         generateArray(); 
-        autoKey();
-//        resetBoard();
+
+        resetBoard();
         try {
             drawArray(g);
         } catch (InterruptedException ex) {
@@ -69,14 +71,15 @@ public class Searching extends JFrame{
     public void linearSearch() 
     {
 
+        //            try {
+//                drawArray(graphics);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(Searching.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         boolean found=false;
-        for(int i=0;i<arraySize;i++)
+        int i=0;
+        while(array[i]<=key && i<arraySize)
         {
-            try {
-                drawArray(graphics);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Searching.class.getName()).log(Level.SEVERE, null, ex);
-            }
             drawRectangle(i,secondary_color);
             try{
                 Thread.sleep(delay);
@@ -84,14 +87,12 @@ public class Searching extends JFrame{
             if(array[i]==key)
             {
                 drawRectangle(i,temp_color);
-//                System.out.println(key+" - "+array[i]);
                 drawNumber(i);
                 found=true;
                 break;
             }
-            resetAndRedraw(i);
-            drawNumber(i);
-            
+            resetAndRedraw(i);   
+            i++;
         }
         if(!found)
         {
@@ -101,11 +102,6 @@ public class Searching extends JFrame{
     
     public void binarySearch() 
     {
-        try {
-            drawArray(graphics);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Searching.class.getName()).log(Level.SEVERE, null, ex);
-        }
         boolean found=false;
         int low=0,high=arraySize-1;
         while(low<=high)
@@ -118,7 +114,6 @@ public class Searching extends JFrame{
             if(array[mid]==key)
             {
                 drawRectangle(mid,temp_color);
-                System.out.println(key+" - "+array[mid]);
                 drawNumber(mid);
                 found=true;
                 break;
@@ -160,6 +155,13 @@ public class Searching extends JFrame{
     {
         this.key=key;
         label.setText("Key Value: "+ key);
+        if(keyIndex!=-1)
+            drawRectangle(keyIndex, initial_color);
+        keyIndex=findElement();
+        if(keyIndex!=-1)
+            drawRectangle(keyIndex, key_color);
+        System.err.println(""+keyIndex);
+        
     }
     void autoKey()
     {
@@ -167,19 +169,36 @@ public class Searching extends JFrame{
         changeKey(array[rnd]);
 //        key=array[rnd];
     }
+    void changeDelay(int newTime)
+    {
+        delay=newTime;
+    }
+    void resizeArray(int newSize)
+    {
+        for(int i=0;i<arraySize;i++)
+            resetRectangle(i);
+//        repaint();
+        arraySize=newSize;
+        array=new int[arraySize];
+        width=window/arraySize;
+        resetBoard();
+     
+    }
+    
     void resetBoard()
     {
         for(int i=0;i<arraySize;i++)
             resetRectangle(i);
         sorted=false;
         generateArray();
-        autoKey();
+
         try {
             drawArray(graphics);
 
         } catch (InterruptedException ex) {
             System.err.println(""+ex);
         }
+//        autoKey();
     }
     void drawArray(Graphics g) throws InterruptedException
     {
@@ -190,29 +209,54 @@ public class Searching extends JFrame{
         for(int i=0;i<arraySize;i++)
         {
             g.fillRect(x_min+i*width, y_min, width-margin, array[i]);
+            
         }
-        g.setColor(Color.BLACK);
-        for(int i=0;i<arraySize;i++)
-        {
-            g.setColor(final_color);
-            g.drawString(""+array[i],x_min+i*width+4 , y_min+min_height/2);
-        }
-    }    
+        for(int i=0;i<arraySize;i++)       
+            drawNumber(i);
+        
+        autoKey();
+
+    } 
     
-    private void drawNumber(int i)
+    private int findElement()
     {
-        graphics.setColor(final_color);
-        graphics.drawString(""+array[i],x_min+i*width+4 , y_min+min_height/2);
+        int low=0,high=arraySize-1;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;         
+            if(array[mid]==key)         
+                return mid;          
+            else if(array[mid]>key)           
+                high=mid-1;            
+            else
+                low=mid+1;
+        }
+        
+        return -1;
     }
+    
+    void drawNumber(int i)
+    {
+        graphics.setFont(new Font(graphics.getFont().getFamily(),0,(int)(width*0.4)));
+        graphics.setColor(Color.BLACK);
+        graphics.drawString(""+array[i], x_min+i*width+(int)(width*0.1), y_min+width);
+    }
+//    private void drawNumber(int i)
+//    {
+//        graphics.setColor(final_color);
+//        graphics.drawString(""+array[i],x_min+i*width+4 , y_min+min_height/2);
+//    }
     private void resetRectangle(int i)
     {
         graphics.setColor(background_color);
-        graphics.fillRect(x_min+(i)*width, y_min, width-margin, max_height+min_height);       
+        graphics.fillRect(x_min+(i)*width, y_min, width-margin, max_height+min_height); 
+//        drawNumber(i);
     }
     void drawRectangle(int index, Color color)
     {
         graphics.setColor(color);
         graphics.fillRect(x_min+index*width, y_min, width-margin, array[index]);
+        drawNumber(index);
     }  
     private void resetAndRedraw(int i)
     {
@@ -220,5 +264,6 @@ public class Searching extends JFrame{
         graphics.fillRect(x_min+(i)*width, y_min, width-margin, max_height+5);
         graphics.setColor(initial_color);
         graphics.fillRect(x_min+(i)*width, y_min, width-margin, array[i]);
+        drawNumber(i);
     }    
 }

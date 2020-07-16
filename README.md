@@ -1,7 +1,7 @@
 # AlgorithmsVisualiser
 
 ## Purpose
-This project's purpose was to help me understand how to implement the prominent searching and sorting algorithms and to visualise that how do these algorithms handle data in real time.
+This project's purpose was to help me understand that how to implement the prominent searching and sorting algorithms and to visualise how do these algorithms handle data in real time.
 
 ## Features
 This project features many algorithms including:
