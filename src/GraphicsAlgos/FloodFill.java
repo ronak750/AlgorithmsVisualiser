@@ -8,6 +8,7 @@ package GraphicsAlgos;
 import com.sun.prism.GraphicsPipeline;
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Robot;
 import java.awt.event.MouseEvent;
@@ -28,53 +29,54 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
     /**
      * Creates new form ScanLineBoard
      */
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int x_min=50,y_min=50;
-    private int x_window=1250,y_window=700;
-    private int window=950;
+    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int y_window=(int) screenSize.getHeight()*90/100;
+    private int window=x_window*80/100;
     static Graphics graphics,gg;
     int delay=40;
     
     // specific variables
     
-    private int max_x=1300,max_y=700;
-    private int y_pol_max=Integer.MIN_VALUE,x_pol_max=Integer.MIN_VALUE;
-    private int y_pol_min=Integer.MAX_VALUE,x_pol_min=Integer.MAX_VALUE;
-    private final Color final_color=Color.YELLOW,
-                        path_color=Color.ORANGE ,
-                        boundary_color=Color.BLACK,
-                        fill_color=Color.RED;
-    private final java.awt.Color initial_color=java.awt.Color.yellow,
-                   source_color=java.awt.Color.decode("#EE82EE"),
-                   background_color=java.awt.Color.decode("#d6d9e0"),
-                   dest_color=Color.green,
-                   temp_color=Color.decode("#A2B582"),
-                   black_color=Color.BLACK;
-     
-    int bc=boundary_color.getRGB(),fc=fill_color.getRGB();
-    private boolean init=true;    
-    
-    
-    // experimental variables
-    BufferedImage img;
+    private int max_x=window,max_y=700;
+    private final Color fill_color=Color.RED,
+                        background_color=Color.decode("#d6d9e0"),
+                        placeholder_color=Color.decode("#707070"),
+                        interior_point_color=Color.decode("#e875e8");
+    private Color boundary_color=Color.BLACK; 
+    private boolean init=true;      
+    private BufferedImage img;
     private int prev_x,prev_y;
-    private boolean first=true;
+    private int interior_point_x,interior_point_y;
+    private int interiorPointSize=20;
+    private boolean first=true, goon=true;
+    static private Thread fillThread;
+    private int algo=-1;
     
     public FloodFill() {
         initComponents();
+        setSize(x_window,y_window);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setTitle("Visualtions of Filling Algorithms");
         addMouseMotionListener(this);
-//        this.addMouseMotionListener(this);
         addMouseListener(this);
-        img=new BufferedImage(700, 700, BufferedImage.TYPE_INT_RGB);
+        img=new BufferedImage(window, y_window, BufferedImage.TYPE_INT_RGB);
         gg=img.getGraphics();
-        
+        interior_point_x=0;
+        interior_point_y=0;
+        fillThread=new FillThread();
     }
     public void draw()
     {
-        gg.setColor(Color.WHITE);
-        gg.fillRect(0, 0, 700, 700);
-        gg.setColor(Color.BLACK);
-//        gg.drawOval(100, 100, 20, 20);
-//        getGraphics().drawImage(img, 0, 00, this);
+        gg.setColor(background_color);
+        gg.fillRect(0, 0, window, y_window);
+        // adding placeholder
+        gg.setColor(placeholder_color);
+        gg.setFont(new java.awt.Font("Tahoma", 0, 25));
+        gg.drawString("Draw Your Figure Here", window*25/100, y_window*10/100);   
+        
+        
     }
     public void paint(Graphics g)
     {
@@ -84,9 +86,11 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
             init=false;
         }
         super.paint(g);
+        changeInteriorPoint(interior_point_x,interior_point_y);
+        g.drawLine(window, 0, window, y_window);       
         graphics=g;
-        g.drawImage(img, 0, 0, this);
         
+        g.drawImage(img, 0, 0, this);
         
     }
 
@@ -99,21 +103,205 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton9 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 153));
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 102, 102));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Algorithm", "Boundary Fill", "Flood Fill" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(0, 153, 255));
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Simulate");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Lucida Calligraphy", 1, 26)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel6.setText("Controller");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel5.setText("Choose Boundary Color");
+
+        jButton3.setBackground(new java.awt.Color(204, 0, 255));
+        jButton3.setText("jButton2");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(102, 153, 0));
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 51, 51));
+        jButton4.setText("RESET");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(0, 0, 0));
+        jButton5.setText("jButton2");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 102, 102));
+        jButton6.setText("Add Break");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1337, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(1098, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(71, 71, 71))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 186, Short.MAX_VALUE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(45, 45, 45)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton5))
+                .addGap(67, 67, 67)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jButton9)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addGap(66, 66, 66)
+                .addComponent(jButton4)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        boundary_color=Color.decode("#000099");
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        
+          goon=true;      
+        Thread.State sortThreadState=fillThread.getState();
+        if(sortThreadState==Thread.State.RUNNABLE || sortThreadState==Thread.State.TIMED_WAITING) return;
+            try{
+               fillThread =new FillThread();
+                fillThread.start();
+            }catch(Exception e){System.err.println(""+e);}
+            
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+
+        algo=jComboBox1.getSelectedIndex();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        boundary_color=Color.decode("#cc00ff");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            //        if(sortThread.getState()==Thread.State.RUNNABLE)
+            fillThread.interrupt();
+            fillThread=new FillThread();
+            img=new BufferedImage(window, y_window-2, BufferedImage.TYPE_INT_RGB);
+            gg=img.getGraphics();
+            draw();
+            goon=false;
+            first=true;
+            repaint();
+        }catch(Exception e){}
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        boundary_color=Color.BLACK;
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+      first=true;
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,13 +343,16 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
     public void mouseDragged(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         int x=me.getX(),y=me.getY();
-        if(x>=max_x || y>=max_y) return;
+        if(x>=window || y>=y_window-3) return;
         graphics=getGraphics();
-        gg.setColor(Color.BLACK);
+        gg.setColor(boundary_color);
         if(!first)
         {
             gg.drawLine(x, y, prev_x, prev_y);
-        }      
+        } 
+        else{
+            repaint();
+        }
         first=false;
         gg.fillOval(x,y, 2, 2);
         prev_x=x;prev_y=y;
@@ -175,44 +366,45 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
     }
 
     @Override
-    public void mouseClicked(MouseEvent me) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//  
-        int srcx=me.getX();
-        int srcy=me.getY();
+    public void mouseClicked(MouseEvent me) {  
         
+        int x=me.getX();
+        int y=me.getY();
+        if(x>=window || y>=y_window-3) return;
+        changeInteriorPoint(x,y);
         // recursive function call for smaller figures.
         // for larger this sunction will give stack overflow error
 //        boundaryFill4(srcx, srcy);
         
         //iterative function call for larger figures
-        bfill(srcx, srcy);            
+//        bfill(srcx, srcy);   
+//        iterativeFloodFill(srcx, srcy);  
     }
     
    // ITERATIVE FUNCTION TO CALL BOUNDARY FILL 
    void bfill(int xi,int yi)
    {
-       Stack<Vertex> points = new Stack<>();
+        Stack<Vertex> points = new Stack<>();
         points.add(new Vertex(xi, yi));
-
+        int boundary_color_rgb=boundary_color.getRGB(),
+            fill_color_rgb=fill_color.getRGB();
         while(!points.isEmpty()) {
+            if(!goon)
+                   break;
             Vertex currentPoint = points.pop();
             int x = currentPoint.getX();
             int y = currentPoint.getY();
-
+            if(x>=window || y>=y_window-3)  continue;
             int current = getpixel(x, y);
-        if((current != bc) && (current != fc)){
-            //bI.setRGB(x, y, fColor.getRGB());
-//            bI.setRGB(x, y, fColor.getRGB());
-//
-//            repaint();
-            putpixel(x, y);
-            points.push(new Vertex(x+1, y));
-            points.push(new Vertex(x-1, y));
-            points.push(new Vertex(x, y+1));
-            points.push(new Vertex(x, y-1));
+            if(x>=window || y>=y_window-3 || x<2 || y<2)  continue;
+            if((current != boundary_color_rgb) && (current != fill_color_rgb)){
+                putpixel(x, y);
+                points.push(new Vertex(x, y-1));
+                points.push(new Vertex(x-1, y));
+                points.push(new Vertex(x, y+1));
+                points.push(new Vertex(x+1, y));
+            }
         }
-    }
    }
     
 // RECURSIVE BOUNDARY FILL ALGO
@@ -220,8 +412,8 @@ public class FloodFill extends javax.swing.JFrame implements MouseMotionListener
 void boundaryFill4(int x, int y)
 {
     if(x<10 || y<10 || x>500 || y>500)  return;
-    if(getpixel(x, y) != bc &&
-       getpixel(x, y) != fc)
+    if(getpixel(x, y) != boundary_color.getRGB() &&
+       getpixel(x, y) != fill_color.getRGB())
     {
         putpixel(x, y);
         boundaryFill4(x + 1, y);
@@ -232,15 +424,50 @@ void boundaryFill4(int x, int y)
 }
     int getpixel(int x,int y)
     {
-//        System.out.println(img.getRGB(x, y)+"--"+boundary_color.getRGB());
         return img.getRGB(x, y);
     }
     void putpixel(int x,int y)
     {
-        img.setRGB(x, y, fc);
+        img.setRGB(x, y, fill_color.getRGB());
         getGraphics().drawImage(img, 0, 0, this);
     }
 
+    void changeInteriorPoint(int x,int y)
+    {
+        gg.setColor(background_color);
+        gg.fillOval(interior_point_x, interior_point_y, interiorPointSize,interiorPointSize);
+        interior_point_x=x;
+        interior_point_y=y;
+        gg.setColor(fill_color);
+        gg.fillOval(interior_point_x, interior_point_y, interiorPointSize,interiorPointSize);
+        getGraphics().drawImage(img, 0,0, this);
+    }
+    
+    void iterativeFloodFill(int xi,int yi)
+   {
+        Stack<Vertex> points = new Stack<>();
+        points.add(new Vertex(xi, yi));
+        int background_color_rgb=background_color.getRGB(),
+            fill_color_rgb=fill_color.getRGB();
+        while(!points.isEmpty()) {
+            if(!goon)
+                   break;
+            Vertex currentPoint = points.pop();
+            int x = currentPoint.getX();
+            int y = currentPoint.getY();
+            if(x>=window || y>=y_window-3 || x<2 || y<2)  continue;
+            int current = getpixel(x, y);
+            if(current == background_color_rgb){
+                putpixel(x, y);
+                points.push(new Vertex(x, y-1));
+                points.push(new Vertex(x-1, y));
+                points.push(new Vertex(x, y+1));
+                points.push(new Vertex(x+1, y));
+            }
+        }
+   }
+    
+    
     @Override
     public void mousePressed(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -262,5 +489,31 @@ void boundaryFill4(int x, int y)
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
+    private class FillThread extends Thread{
+        public void run()
+        {
+            switch(algo)
+            {
+                case -1:
+                case 0: JOptionPane.showMessageDialog(null, "Select An Algorithm");
+                    break;
+                case 1: bfill(interior_point_x,interior_point_y);   
+                    break;
+                case 2: iterativeFloodFill(interior_point_x,interior_point_y);
+            }
+
+                
+        }
+    }
+
 }
