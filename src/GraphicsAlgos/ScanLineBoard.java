@@ -13,6 +13,7 @@ import java.awt.Robot;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +28,10 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
     /**
      * Creates new form ScanLineBoard
      */
-    
     private int x_min=50,y_min=50;
     private int x_window=1250,y_window=700;
     private int window=950;
-    static Graphics graphics;
+    static Graphics graphics,gg;
     int delay=40;
     
     // specific variables
@@ -40,6 +40,8 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
     Vertex prevVertex,curVertex;
     private int totalVerticesCount=4;
     private int max_x=1300,max_y=700;
+    private int y_pol_max=Integer.MIN_VALUE,x_pol_max=Integer.MIN_VALUE;
+    private int y_pol_min=Integer.MAX_VALUE,x_pol_min=Integer.MAX_VALUE;
     private final Color final_color=Color.YELLOW,
                         path_color=Color.ORANGE ;
     private final java.awt.Color initial_color=java.awt.Color.yellow,
@@ -57,20 +59,41 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
 //    private boolean isFound=false;
 //    private boolean srcChange=false,destChange=false;
 //    private static int algoIndex=-1;
-        
+    private boolean init=true;    
+    
+    
+    // experimental variables
+    BufferedImage img;
     
     public ScanLineBoard() {
         initComponents();
         addMouseMotionListener(this);
 //        this.addMouseMotionListener(this);
         addMouseListener(this);
-
+        img=new BufferedImage(700, 700, BufferedImage.TYPE_INT_RGB);
+        gg=img.getGraphics();
+        
     }
-    
+    public void draw()
+    {
+        gg.setColor(Color.WHITE);
+        gg.fillRect(0, 0, 700, 700);
+        gg.setColor(Color.BLACK);
+//        gg.drawOval(100, 100, 20, 20);
+//        getGraphics().drawImage(img, 0, 00, this);
+    }
     public void paint(Graphics g)
     {
+        if(init)
+        {
+            draw();
+            init=false;
+        }
         super.paint(g);
         graphics=g;
+        g.drawImage(img, 0, 0, this);
+        
+        
     }
 
     /**
@@ -98,16 +121,16 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(1167, Short.MAX_VALUE)
+                .addContainerGap(993, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(71, 71, 71))
+                .addGap(245, 245, 245))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(117, 117, 117)
+                .addGap(118, 118, 118)
                 .addComponent(jButton1)
-                .addContainerGap(496, Short.MAX_VALUE))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,23 +138,34 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+//        System.out.println(""+img.getRGB(500, 500));   
+//        Color c=new Color(img.getRGB(100, 100));
+//         System.out.println(""+c);
+//        int x=1;
+//        if(x==1)
+//            return;
+        
         graphics=getGraphics();
+        graphics.setColor(path_color);
         boolean fill=false;
         
-        try {
-             Robot r= new Robot();
-            
-            
-        
-        for(int i=30;i<max_x;i++)
+        for(int j=y_pol_min+1;j<y_pol_max;j+=2)
         {
-            for(int j=30;j<max_y;j++)
+            fill=false;
+            for(int i=x_pol_min;i<x_pol_max;i+=1)
             {
-                // check condition for boundary 
-               if(r.getPixelColor(50, 50).getGreen()==0)
-               {
-                    System.out.println(""+r.getPixelColor(50, 50));
-               }
+                Color c=new Color(img.getRGB(i, j));
+                if(c.equals(Color.BLACK))
+                {
+//                    System.err.println(i+"-"+j);
+                    fill=!fill;
+                    continue;
+                }
+                if(fill)
+                {
+                    img.setRGB(i, j, path_color.getRGB());
+                    getGraphics().drawImage(img, 0, 00, this);                    
+                }
 //                graphics.getColor();
 //                if(fill)
 //                {
@@ -139,9 +173,6 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
 //                }
             }
             
-        }
-        } catch (AWTException ex) {
-            Logger.getLogger(ScanLineBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
 //System.out.println("pixel"+getPixel(10,10));
 
@@ -206,16 +237,29 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //        System.out.println("Clicked");
                 graphics=getGraphics();
+                graphics.setColor(Color.BLACK);
                 int x=me.getX(),y=me.getY();
-                x=me.getXOnScreen();
-                y=me.getYOnScreen();
+                System.out.println(x+" "+y);
+//                x=me.getXOnScreen();
+//                y=me.getYOnScreen();
+                y_pol_min=Math.min(y, y_pol_min);
+                x_pol_min=Math.min(x, x_pol_min);
+                y_pol_max=Math.max(y, y_pol_max);
+                x_pol_max=Math.max(x, y_pol_max);
+                
+                System.out.println(x+" "+y);               
                 if(x>=max_x || y>=max_y) return;
                 Vertex v1=new Vertex(x,y);
                 verticesList.add(v1);
                 graphics.drawOval(x, y, 1, 1);
                 if(vertexCount>0 && vertexCount<totalVerticesCount)
                 {
-                    graphics.drawLine(prevVertex.getX(), prevVertex.getY(), x, y);
+//                    int[] ar={prevVertex.getX(),prevVertex.getX()+10,x,x+2};
+//                    int br[]={prevVertex.getY(),prevVertex.getY()+10,y,y+2};
+//                   
+//                    gg.fillPolygon(ar, br, 4);
+                    gg.drawLine(prevVertex.getX(), prevVertex.getY(), x, y);
+                    graphics.drawImage(img, 0, 0, null);
                 }
                 else if(vertexCount>=totalVerticesCount){
                     JOptionPane.showMessageDialog(null, "Maximum Vertices Already Drawn");
@@ -224,8 +268,13 @@ public class ScanLineBoard extends javax.swing.JFrame implements MouseMotionList
                 prevVertex=v1;
                 if(vertexCount==totalVerticesCount)
                 {
-                    graphics.drawLine(prevVertex.getX(), prevVertex.getY(),
+//                    int[] ar={prevVertex.getX(),prevVertex.getX()+2,verticesList.get(0).getX(),verticesList.get(0).getX()+2};
+//                    int br[]={prevVertex.getY(),prevVertex.getY()+2, verticesList.get(0).getY(), verticesList.get(0).getY()+2};
+//                   
+//                    gg.fillPolygon(ar, br, 4);
+                    gg.drawLine(prevVertex.getX(), prevVertex.getY(),
                             verticesList.get(0).getX(), verticesList.get(0).getY());
+                    graphics.drawImage(img, 0, 0, null);
                 }
                 
             
