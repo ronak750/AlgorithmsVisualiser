@@ -7,11 +7,15 @@ package sorting;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -26,6 +30,7 @@ public class AlgosHome extends javax.swing.JFrame {
     private int x_window=(int) screenSize.getWidth()*90/100;
     private int y_window=(int) screenSize.getHeight()*90/100;
     private int window=x_window*80/100;
+    private int panel_height=y_window*70/100;
     
     
     public AlgosHome() {
@@ -33,35 +38,103 @@ public class AlgosHome extends javax.swing.JFrame {
         setLayout(null);          
         setSize(x_window, y_window);
         JPanel panel=new JPanel();  
-        panel.setBounds(x_window*3/100,y_window*15/100,x_window*20/100,y_window*70/100);    
+        panel.setBounds(x_window*3/100,y_window*15/100,x_window*21/100,panel_height);    
         panel.setBackground(Color.gray);  
-        JButton b1=new JButton("Button 1");     
-//        b1.setBounds(0,0,0,0);    
-        b1.setBackground(Color.yellow);   
-        JButton b2=new JButton("Button 2");   
-//        b2.setBounds(100,100,80,30);    
-        b2.setBackground(Color.green);   
-        panel.add(b1); panel.add(b2);  
+//        JButton b1=new JButton("Button 1");     
+////        b1.setBounds(0,0,0,0);    
+//        b1.setBackground(Color.yellow);   
+//        JButton b2=new JButton("Button 2");   
+////        b2.setBounds(100,100,80,30);    
+//        b2.setBackground(Color.green);   
+//        panel.add(b1); panel.add(b2);  
         add(panel);  
         panel=new JPanel();  
-        panel.setBounds(x_window*27/100,y_window*15/100,x_window*20/100,y_window*70/100);       
+        panel.setBounds(x_window*29/100,y_window*15/100,x_window*21/100,panel_height);       
         panel.setBackground(Color.gray);   
         add(panel);
         panel=new JPanel();  
-        panel.setBounds(x_window*53/100,y_window*15/100,x_window*20/100,y_window*70/100);       
+        panel.setBounds(x_window*52/100,y_window*15/100,x_window*21/100,panel_height);       
         panel.setBackground(Color.gray);   
         add(panel);
         panel=new JPanel();  
-        panel.setBounds(x_window*76/100,y_window*15/100,x_window*20/100,y_window*70/100);       
-        panel.setBackground(Color.gray);   
+        panel.setBounds(x_window*75/100,y_window*15/100,x_window*21/100,panel_height);       
+        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+
+JLabel j2=new JLabel("Sorting");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 0;
+panel.add(j2, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/download.png")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,10,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+JTextArea jta=new JTextArea("Heyy \n ehy \n has \n asdas");
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(50,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(30,0,30,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+
         add(panel);
         // top horizontal panel
         panel=new JPanel();  
-        panel.setBounds(x_window*20/100,0,x_window*60/100,y_window*10/100);      
-//        panel.
-        JLabel j1=new JLabel("Visualiser");
-        panel.add(j1);
-//        panel.setBackground(Color.gray);   
+        panel.setBounds(0,10,x_window,y_window*10/100);      
+        JLabel wlcm_label=new JLabel("Visualiser");
+        wlcm_label.setFont(new java.awt.Font("Tahoma", 3, 30));
+        wlcm_label.setBounds(0,0,x_window,y_window*10/100); 
+        wlcm_label.setForeground(new java.awt.Color(102, 51, 255));
+        wlcm_label.setText("Welcome to Algorithms Visualsier");
+        wlcm_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel.add(wlcm_label);
         add(panel);
     }
 
@@ -74,10 +147,19 @@ public class AlgosHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 720));
         setPreferredSize(new java.awt.Dimension(1200, 720));
         getContentPane().setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(960, 200, 180, 31);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,5 +200,6 @@ public class AlgosHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
