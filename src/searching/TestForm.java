@@ -32,8 +32,10 @@ public class TestForm extends javax.swing.JFrame  implements MouseMotionListener
     private int arraySize=50;
     private int[] array=new int[arraySize];
     private int x_min=50,y_min=50;
-    private int x_window=1250,y_window=700;
-    private int window=950;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int y_window=(int) screenSize.getHeight()*90/100;
+    private int window=x_window*80/100;
     static Graphics graphics;
     int delay=40;
     
@@ -62,6 +64,7 @@ public class TestForm extends javax.swing.JFrame  implements MouseMotionListener
     public TestForm() {
         initComponents();  
         addMouseMotionListener(this);
+        setSize(x_window,y_window);
 //        this.addMouseMotionListener(this);
         addMouseListener(this);
         resetBoard();

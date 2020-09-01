@@ -6,8 +6,10 @@
 package searching;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import static java.util.Arrays.sort;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +26,14 @@ public class Searching extends JFrame{
     private boolean init=false;
     int array[]=new int[arraySize];
     int key=225;
-    private int max_height=380,min_height=40; 
+    
     //copied variables
     private int x_min=40,y_min=65;
-    private int x_window=1100,y_window=700;
-    private int window=950;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int y_window=(int) screenSize.getHeight()*90/100;
+    private int window=x_window*78/100;
+    private int max_height=y_window*50/100,min_height=40; 
     private int width=window/arraySize,margin=6;
     private Color background_color=Color.decode("#d6d9e0");
     private Color initial_color=Color.yellow,
@@ -46,7 +51,7 @@ public class Searching extends JFrame{
     
     Searching(Graphics g,int arrSize, javax.swing.JLabel jlabel)
     {
-        setSize(x_window,y_window);
+        setSize(window,y_window);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Visulaisation of Soritng algorithms");
         this.arraySize=arrSize;

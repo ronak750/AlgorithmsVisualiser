@@ -19,10 +19,12 @@ public class Sorting extends JFrame{
     private int arraySize=50;
     private int[] array=new int[arraySize];
     private int x_min=50,y_min=50;
-    private int x_window=1200,y_window=700;
-    private int window=900;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int y_window=(int) screenSize.getHeight()*90/100;
+    private int window=x_window*80/100;
     private int width=window/arraySize,margin=2;
-    private int max_height=550;
+    private int max_height=y_window*78/100;
     private Color background_color=Color.decode("#d6d9e0");
     private Color initial_color=Color.yellow,
             highlighted_color=Color.red,
@@ -32,9 +34,10 @@ public class Sorting extends JFrame{
     private int delay=50;
     private boolean sorted=false;
     Graphics graphics;
+
     
     Sorting(Graphics g,int arrSize){
-        setSize(x_window,y_window);
+        setSize(window,y_window);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Visulaisation of Soritng algorithms");
         arraySize=arrSize;
@@ -51,22 +54,7 @@ public class Sorting extends JFrame{
             System.out.println(ex);
         }
     }
-    
-//    public void paint(Graphics g)
-//    {
-////        super.paint(g);
-//        if(sorted)
-//            return;
-//        try {
-//            drawArray(g);
-////            bubbleSort(g);
-//            insertionSort(g);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(Sorting.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println(ex);
-//        }     
-////        g.drawString("Insertion Sort", 300, 700);
-//    }
+
 
      void drawArray(Graphics g) throws InterruptedException
      {
@@ -196,19 +184,14 @@ public class Sorting extends JFrame{
         int L[] = new int [n1]; 
         int R[] = new int [n2]; 
   
-        /*Copy data to temp arrays*/
         for (int i=0; i<n1; ++i) 
             L[i] = array[l + i]; 
         for (int j=0; j<n2; ++j) 
             R[j] = array[m + 1+ j]; 
   
-  
-        /* Merge the temp arrays */
-  
-        // Initial indexes of first and second subarrays 
+
         int i = 0, j = 0; 
-  
-        // Initial index of merged subarry array 
+
         int k = l; 
         while (i < n1 && j < n2) 
         {     
@@ -247,7 +230,7 @@ public class Sorting extends JFrame{
             
         } 
   
-        /* Copy remaining elements of L[] if any */
+     
         while (i < n1) 
         { 
             array[k] = L[i]; 
@@ -255,7 +238,6 @@ public class Sorting extends JFrame{
             k++; 
         } 
   
-        /* Copy remaining elements of R[] if any */
         while (j < n2) 
         { 
             array[k] = R[j]; 

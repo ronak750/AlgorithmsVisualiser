@@ -43,8 +43,7 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
     private int width=25;
     private Color final_color=Color.YELLOW,
                   boundary_color=Color.ORANGE ;
-    private final java.awt.Color initial_color=java.awt.Color.yellow,
-                   source_color=java.awt.Color.decode("#EE82EE"),
+    private final java.awt.Color initial_color=java.awt.Color.yellow,                  
                    background_color=java.awt.Color.decode("#d6d9e0"),
                    dest_color=Color.green;
     private Color fill_color = Color.RED;
@@ -63,7 +62,6 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
         addMouseMotionListener(this);
         setSize(x_window, y_window);
         addMouseListener(this);
-        resetBoard();
         sourceX=max_x/3;sourceY=max_y/2;
         fillThread=new FillThread();
         for(int i=1;i<max_x;i++)
@@ -82,7 +80,6 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
 //        else return;
         super.paint(g);
         graphics=g;
-
 
         for(int i=1;i<max_x;i++)
         {
@@ -345,12 +342,6 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
     }// </editor-fold>//GEN-END:initComponents
 
     
-    
-    
-   
-    
-    
-    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         boundary_color=Color.decode("#000099");
 
@@ -380,9 +371,7 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-
-        
-        
+  
         goon=true;
         Thread.State sortThreadState=fillThread.getState();
         if(sortThreadState==Thread.State.RUNNABLE || sortThreadState==Thread.State.TIMED_WAITING) return;
@@ -604,22 +593,7 @@ public class GridFill extends javax.swing.JFrame  implements MouseMotionListener
         g.fillRect(x*width+1, y*width+1, width-1, width-1);
     }
     
-    public void resetBoard()
-    {
-//        for(int i=0;i<max_x;i++)
-//        {
-//            for(int j=0;j<max_y;j++)
-//            {
-//                visited[i][j]=0;
-//                board[i][j]=0;
-//                cost[i][j]=Integer.MAX_VALUE;
-//            }
-//        }
-//        isFound=false;
-//        repaint();
-    }
-    
-    
+
 
     
     @Override
