@@ -267,7 +267,7 @@ try{
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
 
-        Main mn=new Main();
+        Old mn=new Old();
         this.dispose();
         mn.setVisible(true);
 

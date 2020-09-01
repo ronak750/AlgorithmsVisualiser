@@ -5,9 +5,22 @@
  */
 package sorting;
 
-import javax.swing.ImageIcon;
-import searching.TestForm;
-import searching.SearchingController;
+import searching.*;
+import GraphicsAlgos.*;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -18,10 +31,68 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int y_window=(int) screenSize.getHeight()*90/100;
+    private int window=x_window*80/100;
+    private int panel_height=y_window*70/100;
+    
+    
     public Main() {
         initComponents();
+        setLayout(null);          
+        setSize(x_window, y_window);
+        panelSorting();
+        JPanel panel=new JPanel();  
+//        panel.setBounds(x_window*2/100,y_window*15/100,x_window*20/100,panel_height);    
+//        panel.setBackground(Color.gray);  
+////        JButton b1=new JButton("Button 1");     
+//////        b1.setBounds(0,0,0,0);    
+////        b1.setBackground(Color.yellow);   
+////        JButton b2=new JButton("Button 2");   
+//////        b2.setBounds(100,100,80,30);    
+////        b2.setBackground(Color.green);   
+////        panel.add(b1); panel.add(b2);  
+//        add(panel);  
+        panelSearching();
+//        panel=new JPanel();  
+//        panel.setBounds(x_window*27/100,y_window*15/100,x_window*20/100,panel_height);       
+//        panel.setBackground(Color.gray);   
+//        add(panel);
+//        panel=new JPanel();      
+//        panel.setBackground(Color.gray);
+//        panel.setBounds(x_window*52/100,y_window*15/100,x_window*20/100,panel_height);  
+//        add(panel);
+//        panel=new JPanel();      
+//        panel.setBackground(Color.gray);
+//        panel.setBounds(x_window*77/100,y_window*15/100,x_window*20/100,panel_height);  
+//        add(panel);
+        panelFill();
+        panelNode();
+        
+        // top horizontal panel
+        panel=new JPanel();  
+        panel.setBounds(0,10,x_window,y_window*10/100);      
+        JLabel wlcm_label=new JLabel("Visualiser");
+        wlcm_label.setFont(new java.awt.Font("Tahoma", 3, 30));
+        wlcm_label.setBounds(0,0,x_window,y_window*10/100); 
+        wlcm_label.setForeground(new java.awt.Color(102, 51, 255));
+        wlcm_label.setText("Welcome to Algorithms Visualsier");
+        wlcm_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel.add(wlcm_label);
+        add(panel);
+        Graphics g=getGraphics();
+        
+        
     }
-
+    public void paint(Graphics g)
+    {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.drawLine(x_window*25/100, y_window*15/100,  x_window*25/100, y_window*95/100);
+        g.drawLine(x_window*50/100, y_window*15/100,  x_window*50/100, y_window*95/100);
+        g.drawLine(x_window*75/100, y_window*15/100,  x_window*75/100, y_window*95/100);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,307 +102,13 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        jLabel9 = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1620, 700));
-        setSize(new java.awt.Dimension(1620, 700));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 51, 255));
-        jLabel1.setText("Welcome to Algorithms Visualsier");
-
-        jSeparator1.setBackground(new java.awt.Color(51, 51, 51));
-        jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jSeparator1.setOpaque(true);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/images.jpg"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/download.png"))); // NOI18N
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 17)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Experience the working of prominent \nSorting Algorithms (Bubble Sort, \nInsertion Sort, Quick Sort Merge Sort, \neap Sort). And see how these\nalgorithms hanlde data in real time.");
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jButton1.setBackground(new java.awt.Color(66, 144, 245));
-        jButton1.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Explore Now");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 17)); // NOI18N
-        jTextArea2.setRows(5);
-        jTextArea2.setText("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
-        jScrollPane2.setViewportView(jTextArea2);
-
-        jButton2.setBackground(new java.awt.Color(66, 144, 245));
-        jButton2.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Explore Now");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 21)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 0, 153));
-        jLabel4.setText("Searching");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 21)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 0, 153));
-        jLabel5.setText("Sorting");
-
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 17)); // NOI18N
-        jTextArea3.setRows(5);
-        jTextArea3.setText("Visualise the path finding algorithms\n(Dijkstra's, A* , BFS and DFS\nalgorithms) These are fascinating \nwhen visualised in action. ");
-        jScrollPane3.setViewportView(jTextArea3);
-
-        jButton3.setBackground(new java.awt.Color(66, 144, 245));
-        jButton3.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Explore Now");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 21)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 0, 153));
-        jLabel6.setText("Path Finding");
-
-        jSeparator2.setBackground(new java.awt.Color(51, 51, 51));
-        jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jSeparator2.setOpaque(true);
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/path.jpg"))); // NOI18N
-
-        jTextArea4.setEditable(false);
-        jTextArea4.setColumns(20);
-        jTextArea4.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 17)); // NOI18N
-        jTextArea4.setRows(5);
-        jTextArea4.setText("Visualise the path finding algorithms\n(Dijkstra's, A* , BFS and DFS\nalgorithms) These are fascinating \nwhen visualised in action. ");
-        jScrollPane4.setViewportView(jTextArea4);
-
-        jButton4.setBackground(new java.awt.Color(66, 144, 245));
-        jButton4.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Explore Now");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 3, 21)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(153, 0, 153));
-        jLabel8.setText("Path Finding");
-
-        jSeparator3.setBackground(new java.awt.Color(51, 51, 51));
-        jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jSeparator3.setOpaque(true);
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/path.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(171, 171, 171))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(113, 113, 113)
-                                        .addComponent(jButton1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(30, 30, 30)))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(132, 132, 132)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addGap(99, 99, 99))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(335, 335, 335)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jButton4)))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(52, 52, 52)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(13, 13, 13))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
+        setMinimumSize(new java.awt.Dimension(1200, 720));
+        setPreferredSize(new java.awt.Dimension(1200, 720));
+        getContentPane().setLayout(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        SearchingController sc=new SearchingController();
-         this.dispose();
-        sc.setVisible(true);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        Controller cntr=new Controller();
-         this.dispose();
-        cntr.setVisible(true);
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        TestForm tf=new TestForm();
-        this.dispose();
-        tf.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,6 +136,7 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -369,29 +147,395 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
     // End of variables declaration//GEN-END:variables
+void panelFill()
+{
+    
+   JPanel panel=new JPanel();  
+        panel.setBounds(x_window*75/100,y_window*15/100,x_window*21/100,panel_height);       
+//        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+JLabel j2=new JLabel("Sorting");
+
+JLabel jLabel4=new JLabel("Fill Algorithms");
+jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 0;
+panel.add(jLabel4, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/flood_fill_algorithm.jpg")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,10,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+
+
+
+//jScrollPane2.setViewportView(jTextArea2);
+JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+jta.setEditable(false);
+jta.setColumns(20);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
+jta.setRows(5);
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(50,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+button.setBackground(new java.awt.Color(66, 144, 245));
+button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
+button.setForeground(new java.awt.Color(255, 255, 255));
+button.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        fill(evt);
+    }
+   });
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(30,0,30,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+    add(panel);
+}
+
+void panelNode()
+{
+    
+   JPanel panel=new JPanel();  
+    panel.setBounds(x_window*52/100,y_window*15/100,x_window*21/100,panel_height);   
+//        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+JLabel j2=new JLabel("Sorting");
+
+JLabel jLabel4=new JLabel("Node Searching");
+jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 0;
+panel.add(jLabel4, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/path.jpg")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,10,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+
+
+
+//jScrollPane2.setViewportView(jTextArea2);
+JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+jta.setEditable(false);
+jta.setColumns(20);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
+jta.setRows(5);
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(50,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+button.setBackground(new java.awt.Color(66, 144, 245));
+button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
+button.setForeground(new java.awt.Color(255, 255, 255));
+button.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        node(evt);
+    }
+   });
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(30,0,30,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+    add(panel);
+}
+void panelSearching()
+{
+    
+   JPanel panel=new JPanel();  
+        panel.setBounds(x_window*27/100,y_window*15/100,x_window*21/100,panel_height);       
+//        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+JLabel j2=new JLabel("Sorting");
+
+JLabel jLabel4=new JLabel("Element Searching");
+jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 0;
+panel.add(jLabel4, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/images.jpg")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,10,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+
+
+
+//jScrollPane2.setViewportView(jTextArea2);
+JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+jta.setEditable(false);
+jta.setColumns(20);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
+jta.setRows(5);
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(50,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+button.setBackground(new java.awt.Color(66, 144, 245));
+button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
+button.setForeground(new java.awt.Color(255, 255, 255));
+button.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        search(evt);
+    }
+   });
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(30,0,30,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+    add(panel);
+}
+void panelSorting()
+{
+    
+   JPanel panel=new JPanel();  
+        panel.setBounds(x_window*2/100,y_window*15/100,x_window*21/100,panel_height);       
+//        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+JLabel j2=new JLabel("Sorting");
+
+JLabel jLabel4=new JLabel("Sorting");
+jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 0;
+panel.add(jLabel4, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/download.png")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,10,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+
+
+
+//jScrollPane2.setViewportView(jTextArea2);
+JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+jta.setEditable(false);
+jta.setColumns(20);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
+jta.setRows(5);
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(50,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(30,0,30,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+button.setBackground(new java.awt.Color(66, 144, 245));
+button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
+button.setForeground(new java.awt.Color(255, 255, 255));
+button.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        sort(evt);
+    }
+   });
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(30,0,30,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+    add(panel);
+}
+private void sort(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller cntr=new Controller();
+        cntr.setVisible(true);
+        this.dispose();
+            
+    }
+private void search(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SearchingController cntr=new SearchingController();
+        cntr.setVisible(true);
+        this.dispose();
+            
+    }
+private void node(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TestForm tf=new TestForm();
+        this.dispose();
+        tf.setVisible(true);
+            
+    }
+private void fill(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FillColor tf=new FillColor();
+        this.dispose();
+        tf.setVisible(true);
+            
+    }
 }
