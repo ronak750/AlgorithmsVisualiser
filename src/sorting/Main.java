@@ -20,7 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 /**
  *
@@ -158,9 +161,6 @@ void panelFill()
         GridBagConstraints c = new GridBagConstraints();
         JButton button= new JButton("5");
         c.fill = GridBagConstraints.HORIZONTAL;
-//c.gridx = 0;
-//c.gridy = 0;
-//panel.add(button, c);
 
 JLabel j2=new JLabel("Sorting");
 
@@ -177,7 +177,7 @@ panel.add(jLabel4, c);
 
 
 j2=new JLabel();
-j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/flood_fill_algorithm.jpg")));
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/4px.png")));
 j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 j2.setFont(new java.awt.Font("Tahoma", 0, 25));
         j2.setForeground(Color.decode("#f00000"));
@@ -192,19 +192,21 @@ panel.add(j2, c);
 
 
 
-//jScrollPane2.setViewportView(jTextArea2);
-JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+JTextArea jta=new JTextArea("Visulasing the colour filling \n algorithms namely, Flood \n Fill and Boundary Fill \n");
 jta.setEditable(false);
-jta.setColumns(20);
+jta.setColumns(200);
 jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
-jta.setRows(5);
-
+jta.setRows(20);
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(50,0,10,0);
+c.insets = new Insets(42,0,20,0);
 c.gridy = 2;
-panel.add(jta, c);
+JScrollPane  scroll = new JScrollPane(jta);
+
+scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//scroll.setViewportView(jta);
+panel.add(jta,c);
 
 
 j2=new JLabel("");
@@ -262,7 +264,7 @@ jLabel4.setForeground(new java.awt.Color(153, 0, 153));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,30,0);
 c.gridy = 0;
 panel.add(jLabel4, c);
 
@@ -284,7 +286,7 @@ panel.add(j2, c);
 
 
 //jScrollPane2.setViewportView(jTextArea2);
-JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+JTextArea jta=new JTextArea("Visualise the path finding algorithms\n(Dijkstra's, A* , BFS and DFS\nalgorithms) These are fascinating \nwhen visualised in action. ");
 jta.setEditable(false);
 jta.setColumns(20);
 jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
@@ -305,7 +307,7 @@ j2.setFont(new java.awt.Font("Tahoma", 0, 25));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,25,0);
 c.gridy = 3;
 panel.add(j2, c);
 
@@ -322,7 +324,7 @@ c.fill = GridBagConstraints.HORIZONTAL;
 c.ipady = 40;       //reset to default
 //c.weighty = 1.0;   //request any extra vertical space
 c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-c.insets = new Insets(30,0,30,0);  //top padding
+c.insets = new Insets(25,0,25,0);  //top padding
 c.gridx = 0;       //aligned with button 2
 c.gridwidth = 3;   //2 columns wide
 c.gridy = 4;       //third row
@@ -352,7 +354,7 @@ jLabel4.setForeground(new java.awt.Color(153, 0, 153));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,25,0);
 c.gridy = 0;
 panel.add(jLabel4, c);
 
@@ -365,7 +367,7 @@ j2.setFont(new java.awt.Font("Tahoma", 0, 25));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,10,0);
+c.insets = new Insets(20,0,9,0);
 c.gridheight=1;
 c.gridy = 1;
 panel.add(j2, c);
@@ -383,7 +385,7 @@ jta.setRows(5);
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(50,0,10,0);
+c.insets = new Insets(42,0,10,0);
 c.gridy = 2;
 panel.add(jta, c);
 
@@ -395,7 +397,7 @@ j2.setFont(new java.awt.Font("Tahoma", 0, 25));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,25,0);
 c.gridy = 3;
 panel.add(j2, c);
 
@@ -412,7 +414,7 @@ c.fill = GridBagConstraints.HORIZONTAL;
 c.ipady = 40;       //reset to default
 //c.weighty = 1.0;   //request any extra vertical space
 c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-c.insets = new Insets(30,0,30,0);  //top padding
+c.insets = new Insets(25,0,25,0);  //top padding
 c.gridx = 0;       //aligned with button 2
 c.gridwidth = 3;   //2 columns wide
 c.gridy = 4;       //third row
@@ -442,7 +444,7 @@ jLabel4.setForeground(new java.awt.Color(153, 0, 153));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,25,0);
 c.gridy = 0;
 panel.add(jLabel4, c);
 
@@ -455,7 +457,7 @@ j2.setFont(new java.awt.Font("Tahoma", 0, 25));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,10,0);
+c.insets = new Insets(25,0,10,0);
 c.gridheight=1;
 c.gridy = 1;
 panel.add(j2, c);
@@ -464,16 +466,17 @@ panel.add(j2, c);
 
 
 //jScrollPane2.setViewportView(jTextArea2);
-JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+JTextArea jta=new JTextArea("Experience the working of prominent \nSorting Algorithms (Bubble Sort, \nInsertion Sort, Quick Sort Merge Sort, \neap Sort). And see how these\nalgorithms hanlde data in real time.");
 jta.setEditable(false);
 jta.setColumns(20);
-jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
 jta.setRows(5);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 16)); // NOI18N
+
 
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(50,0,10,0);
+c.insets = new Insets(45,0,10,0);
 c.gridy = 2;
 panel.add(jta, c);
 
@@ -485,7 +488,7 @@ j2.setFont(new java.awt.Font("Tahoma", 0, 25));
 c.fill = GridBagConstraints.HORIZONTAL;
 c.weightx = 0.5;
 c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
+c.insets = new Insets(25,0,25,0);
 c.gridy = 3;
 panel.add(j2, c);
 
@@ -533,7 +536,7 @@ private void node(ActionEvent evt) {
     }
 private void fill(ActionEvent evt) {
 //           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        FillColor tf=new FillColor();
+        GridFill tf=new GridFill();
         this.dispose();
         tf.setVisible(true);
             
