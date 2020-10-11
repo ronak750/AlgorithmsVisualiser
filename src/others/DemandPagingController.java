@@ -46,7 +46,7 @@ public class DemandPagingController extends javax.swing.JFrame {
     private Queue<Integer> fifoQue=new LinkedList<Integer>();
     private int size=0,max_size=18;
     private int frameSize=3;
-    private int gap=55;
+    private int gap=55,barheight=y_window/2;
     final private int width=(window-x_min)/25;
     private final int margin=width/10*2;
     private final Color final_color=Color.YELLOW,
@@ -82,7 +82,7 @@ public class DemandPagingController extends javax.swing.JFrame {
         g.setFont(new java.awt.Font("Tahoma", 0, 21));
         g.setColor(black_color);
         g.drawString("Ref String", 31, y_min-40);
-        g.drawString("Missed",31, y_min+gap+531);
+        g.drawString("Missed",31, y_min+gap+barheight+30);
         g.drawLine(window, 0, window, y_window);
         graphics.setColor(path_color);
     }
@@ -107,8 +107,10 @@ public class DemandPagingController extends javax.swing.JFrame {
         graphics.setColor(background_color);
         for(int i=0;i<arrayList.size();i++)
         {
-            graphics.fillRect(x_min + width*i+i*margin, y_min+gap, width, 500);
+            graphics.fillRect(x_min + width*i+i*margin, y_min+gap, width, barheight);
+            graphics.fillOval(x_min + width*i+i*margin+8, y_min+gap+barheight+15, 20, 20);
         }
+        
       
         
     }
@@ -422,7 +424,7 @@ public class DemandPagingController extends javax.swing.JFrame {
     {
         graphics=getGraphics();
         graphics.setColor(Color.RED);
-        graphics.fillOval(x_min + width*i+i*margin+8, y_min+gap+515, 20, 20);
+        graphics.fillOval(x_min + width*i+i*margin+8, y_min+gap+barheight+15, 20, 20);
     }
     private void append(int i)
     {
@@ -477,7 +479,7 @@ public class DemandPagingController extends javax.swing.JFrame {
     {
         setRefValue(i, arrayList.get(i), highlight_color);
         graphics.setColor(path_color);
-        graphics.fillRect(x_min + width*i+i*margin, y_min+gap, width, 500);
+        graphics.fillRect(x_min + width*i+i*margin, y_min+gap, width, barheight);
     }
     private void finish()
     {
@@ -810,9 +812,9 @@ public class DemandPagingController extends javax.swing.JFrame {
        graphics=getGraphics();
        graphics.setColor(c);
        graphics.setFont(new java.awt.Font("Tahoma", 3, 26));
-       graphics.drawString(""+value, i*(width+margin)+x_min+7, y_min+gap+85*(j+1));
+       graphics.drawString(""+value, i*(width+margin)+x_min+7, barheight/10+y_min+barheight/5*(j+1));
        graphics.setColor(black_color);
-       graphics.drawLine( i*(width+margin)+x_min, y_min+gap+85*(j+1)+10, i*(width+margin)+x_min+width,y_min+gap+85*(j+1)+10);
+       graphics.drawLine( i*(width+margin)+x_min, barheight/8+y_min+barheight/5*(j+1), i*(width+margin)+x_min+width,barheight/8+y_min+barheight/5*(j+1));
    }
    
    private void sleep(int time)

@@ -27,6 +27,16 @@ This project features many algorithms including:
 * Breadth First Search (BFS)
 * Depth First Search (DFS)
 
+
+### Page Replacement Algorithms:
+* FIFO
+* MRU (Most Recently Used)
+* LRU (Least Recently Used)
+* Optimal
+* MFU (Most Frequently Used)
+* LFU (Least Frequently Used)
+
+
 ### Colour Filling Algorithms
 * Boundary Fill Algorithm
 * Flood Fill Algorithm.
