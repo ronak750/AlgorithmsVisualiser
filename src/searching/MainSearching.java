@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sorting;
+package searching;
 
+import sorting.*;
 import searching.*;
 import GraphicsAlgos.*;
 
@@ -29,23 +30,22 @@ import javax.swing.ScrollPaneConstants;
  *
  * @author Apar
  */
-public class Main extends javax.swing.JFrame {
+public class MainSearching extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private int x_window=(int) screenSize.getWidth()*90/100;
+    private int x_window=(int) screenSize.getWidth()*80/100;
     private int y_window=(int) screenSize.getHeight()*90/100;
     private int window=x_window*80/100;
     private int panel_height=y_window*70/100;
     
     
-    public Main() {
+    public MainSearching() {
         initComponents();
         setLayout(null);          
         setSize(x_window, y_window);
-        panelSorting();
         JPanel panel=new JPanel();  
 //        panel.setBounds(x_window*2/100,y_window*15/100,x_window*20/100,panel_height);    
 //        panel.setBackground(Color.gray);  
@@ -70,8 +70,8 @@ public class Main extends javax.swing.JFrame {
 //        panel.setBackground(Color.gray);
 //        panel.setBounds(x_window*77/100,y_window*15/100,x_window*20/100,panel_height);  
 //        add(panel);
-        panelFill();
         panelNode();
+        
         
         // top horizontal panel
         panel=new JPanel();  
@@ -80,7 +80,7 @@ public class Main extends javax.swing.JFrame {
         wlcm_label.setFont(new java.awt.Font("Tahoma", 3, 30));
         wlcm_label.setBounds(0,0,x_window,y_window*10/100); 
         wlcm_label.setForeground(new java.awt.Color(102, 51, 255));
-        wlcm_label.setText("Welcome to Algorithms Visualsier");
+        wlcm_label.setText("Welcome to Searching Visualsier");
         wlcm_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(wlcm_label);
         add(panel);
@@ -92,9 +92,10 @@ public class Main extends javax.swing.JFrame {
     {
         super.paint(g);
         g.setColor(Color.BLACK);
-        g.drawLine(x_window*25/100, y_window*15/100,  x_window*25/100, y_window*95/100);
         g.drawLine(x_window*50/100, y_window*15/100,  x_window*50/100, y_window*95/100);
-        g.drawLine(x_window*75/100, y_window*15/100,  x_window*75/100, y_window*95/100);
+//        g.drawLine(x_window*50/100, y_window*15/100,  x_window*50/100, y_window*95/100);
+//        g.drawLine(x_window*75/100, y_window*15/100,  x_window*75/100, y_window*95/100);
+//        g.drawLine(x_window*90/100, y_window*15/100,  x_window*90/100, y_window*95/100);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,13 +106,31 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 720));
-        setPreferredSize(new java.awt.Dimension(1200, 720));
         getContentPane().setLayout(null);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 21)); // NOI18N
+        jButton1.setText("<--  BACK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(20, 10, 140, 29);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Main().setVisible(true);
+        this.dispose();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,122 +149,36 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainSearching.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainSearching.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainSearching.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainSearching.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new MainSearching().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
-void panelFill()
-{
-    
-   JPanel panel=new JPanel();  
-        panel.setBounds(x_window*75/100,y_window*15/100,x_window*21/100,panel_height);       
-//        panel.setBackground(Color.gray);         
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        JButton button= new JButton("5");
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-JLabel j2=new JLabel("Sorting");
-
-JLabel jLabel4=new JLabel("Fill Algorithms");
-jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-jLabel4.setForeground(new java.awt.Color(153, 0, 153));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
-c.gridy = 0;
-panel.add(jLabel4, c);
-
-
-j2=new JLabel();
-j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/4px.png")));
-j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-j2.setFont(new java.awt.Font("Tahoma", 0, 25));
-        j2.setForeground(Color.decode("#f00000"));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(30,0,10,0);
-c.gridheight=1;
-c.gridy = 1;
-panel.add(j2, c);
-
-
-
-
-JTextArea jta=new JTextArea("Visulasing the colour filling \n algorithms namely, Flood \n Fill and Boundary Fill \n");
-jta.setEditable(false);
-jta.setColumns(200);
-jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
-jta.setRows(20);
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(42,0,20,0);
-c.gridy = 2;
-JScrollPane  scroll = new JScrollPane(jta);
-
-scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//scroll.setViewportView(jta);
-panel.add(jta,c);
-
-
-j2=new JLabel("");
-j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-j2.setFont(new java.awt.Font("Tahoma", 0, 25));
-        j2.setForeground(Color.decode("#f00000"));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(30,0,30,0);
-c.gridy = 3;
-panel.add(j2, c);
-
-button = new JButton("Explore Now");
-button.setBackground(new java.awt.Color(66, 144, 245));
-button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-button.setForeground(new java.awt.Color(255, 255, 255));
-button.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        fill(evt);
-    }
-   });
-c.fill = GridBagConstraints.HORIZONTAL;
-c.ipady = 40;       //reset to default
-//c.weighty = 1.0;   //request any extra vertical space
-c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-c.insets = new Insets(30,0,30,0);  //top padding
-c.gridx = 0;       //aligned with button 2
-c.gridwidth = 3;   //2 columns wide
-c.gridy = 4;       //third row
-panel.add(button, c);
-    add(panel);
-}
 
 void panelNode()
 {
     
    JPanel panel=new JPanel();  
-    panel.setBounds(x_window*52/100,y_window*15/100,x_window*21/100,panel_height);   
+    panel.setBounds(x_window*10/100,y_window*15/100,x_window*21/100,panel_height);   
 //        panel.setBackground(Color.gray);         
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -335,6 +268,118 @@ void panelSearching()
 {
     
    JPanel panel=new JPanel();  
+        panel.setBounds(x_window*60/100,y_window*15/100,x_window*21/100,panel_height);       
+//        panel.setBackground(Color.gray);         
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button= new JButton("5");
+        c.fill = GridBagConstraints.HORIZONTAL;
+//c.gridx = 0;
+//c.gridy = 0;
+//panel.add(button, c);
+
+JLabel j2=new JLabel("Sorting");
+
+JLabel jLabel4=new JLabel("Element Searching");
+jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(25,0,25,0);
+c.gridy = 0;
+panel.add(jLabel4, c);
+
+
+j2=new JLabel();
+j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/images.jpg")));
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(20,0,9,0);
+c.gridheight=1;
+c.gridy = 1;
+panel.add(j2, c);
+
+
+
+
+//jScrollPane2.setViewportView(jTextArea2);
+JTextArea jta=new JTextArea("Visually sense the uniform searching \n(Linear Search) and interval seaching\n(Binary Search) algorithms. And see \nhow these algorithms hanlde data in\nreal time.");
+jta.setEditable(false);
+jta.setColumns(20);
+jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 18)); // NOI18N
+jta.setRows(5);
+
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(42,0,10,0);
+c.gridy = 2;
+panel.add(jta, c);
+
+
+j2=new JLabel("");
+j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+j2.setFont(new java.awt.Font("Tahoma", 0, 25));
+        j2.setForeground(Color.decode("#f00000"));
+c.fill = GridBagConstraints.HORIZONTAL;
+c.weightx = 0.5;
+c.gridx = 1;
+c.insets = new Insets(25,0,25,0);
+c.gridy = 3;
+panel.add(j2, c);
+
+button = new JButton("Explore Now");
+button.setBackground(new java.awt.Color(66, 144, 245));
+button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
+button.setForeground(new java.awt.Color(255, 255, 255));
+button.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        search(evt);
+    }
+   });
+c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;       //reset to default
+//c.weighty = 1.0;   //request any extra vertical space
+c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+c.insets = new Insets(25,0,25,0);  //top padding
+c.gridx = 0;       //aligned with button 2
+c.gridwidth = 3;   //2 columns wide
+c.gridy = 4;       //third row
+panel.add(button, c);
+    add(panel);
+}
+
+private void search(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SearchingController cntr=new SearchingController();
+        cntr.setVisible(true);
+        this.dispose();
+            
+    }
+private void node(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TestForm tf=new TestForm();
+        this.dispose();
+        tf.setVisible(true);
+            
+    }
+private void fill(ActionEvent evt) {
+//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GridFill tf=new GridFill();
+        this.dispose();
+        tf.setVisible(true);
+            
+    }
+private void panelPageReplacement()
+{
+    
+   JPanel panel=new JPanel();  
         panel.setBounds(x_window*27/100,y_window*15/100,x_window*21/100,panel_height);       
 //        panel.setBackground(Color.gray);         
         panel.setLayout(new GridBagLayout());
@@ -421,124 +466,4 @@ c.gridy = 4;       //third row
 panel.add(button, c);
     add(panel);
 }
-void panelSorting()
-{
-    
-   JPanel panel=new JPanel();  
-        panel.setBounds(x_window*2/100,y_window*15/100,x_window*21/100,panel_height);       
-//        panel.setBackground(Color.gray);         
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        JButton button= new JButton("5");
-        c.fill = GridBagConstraints.HORIZONTAL;
-//c.gridx = 0;
-//c.gridy = 0;
-//panel.add(button, c);
-
-JLabel j2=new JLabel("Sorting");
-
-JLabel jLabel4=new JLabel("Sorting");
-jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-jLabel4.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-jLabel4.setForeground(new java.awt.Color(153, 0, 153));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(25,0,25,0);
-c.gridy = 0;
-panel.add(jLabel4, c);
-
-
-j2=new JLabel();
-j2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sorting/download.png")));
-j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-j2.setFont(new java.awt.Font("Tahoma", 0, 25));
-        j2.setForeground(Color.decode("#f00000"));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(25,0,10,0);
-c.gridheight=1;
-c.gridy = 1;
-panel.add(j2, c);
-
-
-
-
-//jScrollPane2.setViewportView(jTextArea2);
-JTextArea jta=new JTextArea("Experience the working of prominent \nSorting Algorithms (Bubble Sort, \nInsertion Sort, Quick Sort Merge Sort, \neap Sort). And see how these\nalgorithms hanlde data in real time.");
-jta.setEditable(false);
-jta.setColumns(20);
-jta.setRows(5);
-jta.setFont(new java.awt.Font("Rupee Foradian Standard Serif", 0, 16)); // NOI18N
-
-
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(45,0,10,0);
-c.gridy = 2;
-panel.add(jta, c);
-
-
-j2=new JLabel("");
-j2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-j2.setFont(new java.awt.Font("Tahoma", 0, 25));
-        j2.setForeground(Color.decode("#f00000"));
-c.fill = GridBagConstraints.HORIZONTAL;
-c.weightx = 0.5;
-c.gridx = 1;
-c.insets = new Insets(25,0,25,0);
-c.gridy = 3;
-panel.add(j2, c);
-
-button = new JButton("Explore Now");
-button.setBackground(new java.awt.Color(66, 144, 245));
-button.setFont(new java.awt.Font("Adobe Garamond Pro Bold", 0, 21)); // NOI18N
-button.setForeground(new java.awt.Color(255, 255, 255));
-button.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        sort(evt);
-    }
-   });
-
-c.fill = GridBagConstraints.HORIZONTAL;
-c.ipady = 40;       //reset to default
-//c.weighty = 1.0;   //request any extra vertical space
-c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-c.insets = new Insets(30,0,30,0);  //top padding
-c.gridx = 0;       //aligned with button 2
-c.gridwidth = 3;   //2 columns wide
-c.gridy = 4;       //third row
-panel.add(button, c);
-    add(panel);
-}
-private void sort(ActionEvent evt) {
-//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Controller cntr=new Controller();
-        cntr.setVisible(true);
-        this.dispose();
-            
-    }
-private void search(ActionEvent evt) {
-//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        SearchingController cntr=new SearchingController();
-        cntr.setVisible(true);
-        this.dispose();
-            
-    }
-private void node(ActionEvent evt) {
-//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        TestForm tf=new TestForm();
-        this.dispose();
-        tf.setVisible(true);
-            
-    }
-private void fill(ActionEvent evt) {
-//           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        GridFill tf=new GridFill();
-        this.dispose();
-        tf.setVisible(true);
-            
-    }
 }
